@@ -59,19 +59,9 @@ else
         </ul> 
 
         <div id="dish-info">
-            
-                    <p> 
-                        <label for="dish_name">Dish Name</label>
-                        <input class="form-control" name="dish_name" id="dish_name" value="<?= $row['dish_name'] ?>"/>
-                    </p>
-                    <p>
-                        <label for="dish_description">Dish Description</label>
-                        <textarea class="form-control" name="dish_description" id="dish_description"><?= $row['dish_description'] ?></textarea>
-                    </p>
-                    <p> 
-                        <label for="dish_prices">Dish Price</label>
-                        <input class="form-control" name="dish_prices" id="dish_prices" value="<?= $row['dish_prices'] ?>"/>
-                    </p>
+                    <h2><?= $row['dish_name'] ?></h2>
+                    <p><?= $row['dish_description'] ?></p>
+                    <p><?= $row['dish_prices'] ?></p>
         </div>
 
         <div id="footer">

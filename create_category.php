@@ -11,20 +11,54 @@ require('authenticate.php');
 require('connect.php');
 require('validation.php');
 
+function file_upload_path($original_filename, $upload_subfolder_name = 'UploadImage') {
+    $current_folder = dirname(__FILE__);
+    $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+    return join(DIRECTORY_SEPARATOR, $path_segments);
+}
+
+function file_is_an_image($temporary_path, $new_path) {
+    $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+    $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+
+    $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+    $actual_mime_type        = getimagesize($temporary_path)['mime'];
+
+    $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+    $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+
+    return $file_extension_is_valid && $mime_type_is_valid;
+}
+
 // Insert new row if input is valid, else direct to error message page.
 if ($_POST && input_is_valid())
 {
+    $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
+    $food_category_image = '';
+
+    if ($image_upload_detected) {
+        $image_filename       = $_FILES['cat_image']['name'];
+        $temporary_image_path = $_FILES['cat_image']['tmp_name'];
+        $new_image_path       = file_upload_path($image_filename);
+
+        if (file_is_an_image($temporary_image_path, $new_image_path)) {
+            $food_category_image = $image_filename;
+            move_uploaded_file($temporary_image_path, $new_image_path);
+        }
+    }
+    
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
     $food_category_name = filter_input(INPUT_POST, 'food_category_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $food_category_description = filter_input(INPUT_POST, 'food_category_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     
     //  Build the parameterized SQL query and bind to the above sanitized values.
-    $query = "INSERT INTO foodcategories (food_category_name, food_category_description) VALUES (:food_category_name, :food_category_description)";
+    $query = "INSERT INTO foodcategories (food_category_name, food_category_description, food_category_image) VALUES (:food_category_name, :food_category_description, :food_category_image)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
     $statement->bindValue(':food_category_name', $food_category_name);
     $statement->bindValue(':food_category_description', $food_category_description);
+    $statement->bindValue(':food_category_image', $food_category_image);
     
     //  Execute the INSERT.
     if($statement->execute())
@@ -69,7 +103,7 @@ else if ($_POST && !input_is_valid())
         </ul> 
 
         <div id="main_content">
-            <form action="create_category.php" method="post">
+            <form action="create_category.php" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>New Food Category</legend>
                     <p> 
@@ -79,6 +113,10 @@ else if ($_POST && !input_is_valid())
                     <p>
                         <label for="food_category_description">Food Category Description</label>
                         <textarea class="form-control" name="food_category_description" id="food_category_description"></textarea>
+                    </p>
+                    <p>
+                        <label for="image">Image Filename:</label>
+                        <input type="file" name="cat_image" id="cat_image">
                     </p>
                     <p>                       
                         <button type="submit" class="btn btn-primary" name="command">Create</button>

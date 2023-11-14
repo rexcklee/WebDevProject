@@ -89,8 +89,6 @@ $statement_cat_query->execute();
                     <?php endwhile ?>
                 </tbody>
             </table>
-
-
         </div>
         
         <div id="footer">

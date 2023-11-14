@@ -23,6 +23,12 @@ if (isset($_GET['food_category_id']))
     // Execute the SELECT and fetch the single row returned.
     $statement->execute();
 
+
+    $query_cat = "SELECT * FROM foodcategories WHERE food_category_id = :food_category_id";
+    $statement_cat = $db->prepare($query_cat);
+    $statement_cat->bindValue(':food_category_id', $food_category_id, PDO::PARAM_INT);
+    $statement_cat->execute();
+    $row_cat = $statement_cat->fetch();
 }
 else 
 {
@@ -59,7 +65,10 @@ else
         </ul> 
 
         <div id="main_content">
-           
+         
+        <p> <?= $row_cat['food_category_name'] ?> </p>
+        <img src="UploadImage/<?= $row_cat['food_category_image'] ?>"/>
+
         <!-- table of all categories -->
         <table class="table table-hover">
                 <thead>
