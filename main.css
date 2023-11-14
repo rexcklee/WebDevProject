@@ -1,0 +1,139 @@
+label {
+    display: block;
+}
+
+#dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_description{
+    font-family: 'Gabarito', cursive;
+    width: 30em;
+}
+
+#sort_select {
+    width: 21em;
+}
+
+#sorting {
+    width: 10em;
+}
+
+textarea {
+    height: 10em;
+    width: 55em;
+}
+
+body {
+    text-align: center;
+    background: #222222;    
+}
+
+fieldset {
+    margin-top: 10px;
+}
+
+#wrapper {
+    width: 1000px;
+    margin: 0px auto;
+    text-align: left;
+    border: 1px solid grey;
+    padding: 20px 30px;
+    background: #EEEEEE;
+}
+
+div.blog_post h2 a, div#header h1 a {
+    text-decoration: none;
+    color: black;
+}
+
+div#header h1 {
+    margin-top: 0;
+    font-size: 2.5em;
+}
+
+div.blog_post h2{
+    font-family: 'Gabarito', cursive;
+    margin-bottom: 0;
+}
+
+div.blog_post h2 a{
+color: #5cb4fc;
+}
+
+div.blog_post p {
+
+    margin-top: 0;
+}
+
+div.blog_post div.blog_content p {
+    font-family: 'Gabarito', cursive;
+    margin-top: 0.5em;
+    width: 800px;
+}
+
+ul#admin_menu li {
+    display: inline;
+}
+
+ul#admin_menu li a {
+    border: 1px solid grey;
+    background: #c2c2c2;
+    color: #000000;
+    text-decoration: none;
+    padding: 5px 20px;
+    font-size: 1.5em;
+}
+
+ul#admin_menu {
+    padding-left: 0;    
+    list-style: none;
+    margin-bottom: 4px;
+}
+
+ul#admin_menu li a.active {
+    border: 5px solid #4d70da;
+    background: #4d70da;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+ul#admin_menu li a:hover {
+    background: #85ccff;
+    color: #ffffff;
+}
+
+div#main_content {
+    border: 5px solid #4d70da;
+    padding: 15px;
+}
+
+h1, h2 {
+    font-family:'Times New Roman', Times, serif;
+}
+
+div.blog_content {
+    font-family: Calibri, sans-serif;
+}
+
+div#footer {
+    text-align: right;
+    margin-top: 10px;
+    
+}
+
+#edit-button {
+    text-decoration: none;
+    color: #000000;
+    background-color: #fef1bc;
+    border: 1px solid #fad74a;
+    border-radius: 8px;
+    padding: 1px 8px;
+}
+
+#read-more-button {
+    text-decoration: none;
+    color: #000000;
+    background-color: #c5edfc;
+    border: 1px solid #b5e4fc;
+    border-radius: 8px;
+    padding: 0px 6px;
+    margin-left: 10px;
+}
