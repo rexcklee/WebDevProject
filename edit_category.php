@@ -22,7 +22,7 @@ function file_is_an_image($temporary_path, $new_path) {
     $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
 
     $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
-    $actual_mime_type        = getimagesize($temporary_path)['mime'];
+    $actual_mime_type        = (getimagesize($temporary_path) != false) ? getimagesize($temporary_path)['mime'] : null;
 
     $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
     $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
@@ -47,6 +47,8 @@ if (isset($_POST['command']))
             if (file_is_an_image($temporary_image_path, $new_image_path)) {
                 $food_category_image = $image_filename;
                 move_uploaded_file($temporary_image_path, $new_image_path);
+            }else{
+                die("Upload error! The file is not an image.");
             }
         }
         
