@@ -11,25 +11,59 @@ require('authenticate.php');
 require('connect.php');
 require('validation.php');
 
+function file_upload_path($original_filename, $upload_subfolder_name = 'UploadImage') {
+    $current_folder = dirname(__FILE__);
+    $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
+    return join(DIRECTORY_SEPARATOR, $path_segments);
+}
+
+function file_is_an_image($temporary_path, $new_path) {
+    $allowed_mime_types      = ['image/gif', 'image/jpeg', 'image/png'];
+    $allowed_file_extensions = ['gif', 'jpg', 'jpeg', 'png'];
+
+    $actual_file_extension   = pathinfo($new_path, PATHINFO_EXTENSION);
+    $actual_mime_type        = getimagesize($temporary_path)['mime'];
+
+    $file_extension_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
+    $mime_type_is_valid      = in_array($actual_mime_type, $allowed_mime_types);
+
+    return $file_extension_is_valid && $mime_type_is_valid;
+}
+
 // Handle UPDATE
 if (isset($_POST['command']))
 {
     // Handle category UPDATE
-    if (($_POST['command']=='Update') && input_is_valid() && isset($_POST['food_category_id']))
-    {    
+    if (($_POST['command']=='Update') && input_is_valid() && isset($_POST['food_category_id']) && isset($_POST['food_category_image']))
+    {   
+        $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
+        $food_category_image = $_POST['food_category_image'];
+    
+        if ($image_upload_detected) {
+            $image_filename       = $_FILES['cat_image']['name'];
+            $temporary_image_path = $_FILES['cat_image']['tmp_name'];
+            $new_image_path       = file_upload_path($image_filename);
+            
+            if (file_is_an_image($temporary_image_path, $new_image_path)) {
+                $food_category_image = $image_filename;
+                move_uploaded_file($temporary_image_path, $new_image_path);
+            }
+        }
+        
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
         $food_category_name = filter_input(INPUT_POST, 'food_category_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $food_category_description = filter_input(INPUT_POST, 'food_category_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $food_category_id = filter_input(INPUT_POST, 'food_category_id', FILTER_SANITIZE_NUMBER_INT);
         
         // Build the parameterized SQL query and bind to the above sanitized values.
-        $query     = "UPDATE foodcategories SET food_category_name = :food_category_name, food_category_description = :food_category_description WHERE food_category_id = :food_category_id";
+        $query     = "UPDATE foodcategories SET food_category_name = :food_category_name, food_category_description = :food_category_description, food_category_image = :food_category_image WHERE food_category_id = :food_category_id";
 
         $statement = $db->prepare($query);
 
         //  Bind values to the parameters
         $statement->bindValue(':food_category_name', $food_category_name);
         $statement->bindValue(':food_category_description', $food_category_description);
+        $statement->bindValue(':food_category_image', $food_category_image);
         $statement->bindValue(':food_category_id', $food_category_id, PDO::PARAM_INT);
         
         // Execute the INSERT.
@@ -97,7 +131,7 @@ else
         </ul> 
 
         <div id="main_content">
-            <form action="edit_category.php" method="post">
+            <form action="edit_category.php" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <legend>Edit Category</legend>
                     <p> 
@@ -109,8 +143,14 @@ else
                         <textarea class="form-control" name="food_category_description" id="food_category_description"><?= $row['food_category_description'] ?></textarea>
                     </p>
 
+                    <p>
+                        <label for="image">Image Filename:</label>
+                        <input type="file" name="cat_image" id="cat_image">
+                    </p>
+                    
                     <!-- Hidden input for the primary key -->
                     <input type="hidden" name="food_category_id" value="<?= $row['food_category_id'] ?>">
+                    <input type="hidden" name="food_category_image" value="<?= $row['food_category_image'] ?>">
 
                     <p>
                         <button type="submit" class="btn btn-primary" name="command" value="Update">Update</button>

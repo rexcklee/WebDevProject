@@ -66,8 +66,12 @@ else
 
         <div id="main_content">
          
-        <p> <?= $row_cat['food_category_name'] ?> </p>
-        <img src="UploadImage/<?= $row_cat['food_category_image'] ?>"/>
+        <h1> <?= $row_cat['food_category_name'] ?> </h1>
+        <?php if ($row_cat['food_category_image'] != ""): ?>
+        <div id="large-images">
+            <img src="UploadImage/<?= $row_cat['food_category_image'] ?>"/>
+        </div>
+        <?php endif ?>
 
         <!-- table of all categories -->
         <table class="table table-hover">

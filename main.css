@@ -137,3 +137,7 @@ div#footer {
     padding: 0px 6px;
     margin-left: 10px;
 }
+
+#large-images img {
+    width: 100%
+}

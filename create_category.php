@@ -34,7 +34,7 @@ function file_is_an_image($temporary_path, $new_path) {
 if ($_POST && input_is_valid())
 {
     $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
-    $food_category_image = '';
+    $food_category_image = "";
 
     if ($image_upload_detected) {
         $image_filename       = $_FILES['cat_image']['name'];
