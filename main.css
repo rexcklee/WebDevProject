@@ -2,6 +2,27 @@ label {
     display: block;
 }
 
+#webpage {
+    margin: 0px auto;
+    text-align: left;
+    padding: 20px 30px;
+    background: #ffffff;
+}
+
+#home_icon {
+    color: #000000;
+    font-family: 'Gabarito', cursive;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+#menu_item {
+    color: #000000;
+    font-family: 'Gabarito', cursive;
+    font-size: x-large;
+    font-weight: bold;
+}
+
 #dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_description, #cat_image{
     font-family: 'Gabarito', cursive;
     width: 30em;
@@ -35,7 +56,7 @@ fieldset {
     text-align: left;
     border: 1px solid grey;
     padding: 20px 30px;
-    background: #EEEEEE;
+    background: #eeeeee;
 }
 
 div.blog_post h2 a, div#header h1 a {

@@ -25,18 +25,10 @@
     <title>Oishii Japanese Restaurant</title>
 </head>
 <body>
-    <div id="wrapper">
-        <div id="header">
-            <h1><a href="index.php">Oishii Japanese Restaurant</a></h1>
-        </div> 
+    <div id="webpage" class="container-fluid">        
+        <?php include('Component\header.php'); ?>
 
-        <ul id="restaurant_menu">
-            <li><a href="index.php">Oishii</a></li>
-            <li><a href="menu_categories.php">Categories</a></li>
-            <li><a href="contact_us.php">Contact Us</a></li>
-        </ul> 
-
-        <div id="index-page">
+        <div id="index-page" class="container-md">
             <p>This is the first page of the Oishii Japanese Restaurant</p>
 
             <p>Opening Hours</p>

@@ -146,7 +146,7 @@ else
                     </p>
 
                     <p>
-                        <label for="image">Image Filename:</label>
+                        <label for="image">Update Image Filename</label>
                         <input class="form-control" type="file" name="cat_image" id="cat_image">
                     </p>
                     

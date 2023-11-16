@@ -54,6 +54,7 @@ $statement->execute();
                     <th scope="col">#</th>
                     <th scope="col">Category</th>
                     <th scope="col">Category Description</th>
+                    <th scope="col">Category Image</th>
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -65,6 +66,7 @@ $statement->execute();
                             <th scope="row"><?= $row_no ?></th>
                             <td><?= $row['food_category_name'] ?></td>
                             <td><?= $row['food_category_description'] ?></td>
+                            <td><?= $row['food_category_image'] ?></td>
                             <td><a id="edit-button" href="edit_category.php?food_category_id=<?= $row['food_category_id'] ?>">Edit</a></td>
                         </tr>
                     <?php endwhile ?>

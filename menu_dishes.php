@@ -53,16 +53,9 @@ else
 </head>
 <body>
     
-<div id="wrapper">
-        <div id="header">
-            <h1><a href="index.php">Oishii Japanese Restaurant</a></h1>
-        </div> 
-
-        <ul id="restaurant_menu">
-            <li><a href="index.php">Oishii</a></li>
-            <li><a href="menu_categories.php">Categories</a></li>
-            <li><a href="contact_us.php">Contact Us</a></li>
-        </ul> 
+<div id="webpage" class="container-fluid">
+    
+    <?php include('Component\header.php'); ?>
 
         <div id="main_content">
          
