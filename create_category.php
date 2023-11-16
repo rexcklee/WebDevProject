@@ -118,8 +118,8 @@ else if ($_POST && !input_is_valid())
                         <textarea class="form-control" name="food_category_description" id="food_category_description"></textarea>
                     </p>
                     <p>
-                        <label for="image">Image Filename:</label>
-                        <input type="file" name="cat_image" id="cat_image">
+                        <label for="image">Image Filename</label>
+                        <input class="form-control" type="file" name="cat_image" id="cat_image">
                     </p>
                     <p>                       
                         <button type="submit" class="btn btn-primary" name="command">Create</button>

@@ -2,7 +2,7 @@ label {
     display: block;
 }
 
-#dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_description{
+#dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_description, #cat_image{
     font-family: 'Gabarito', cursive;
     width: 30em;
 }

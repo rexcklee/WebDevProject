@@ -38,6 +38,10 @@
 
         <div id="index-page">
             <p>This is the first page of the Oishii Japanese Restaurant</p>
+
+            <p>Opening Hours</p>
+
+            <p>Location</p>
         </div>
         
         <div id="footer">

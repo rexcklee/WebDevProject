@@ -147,7 +147,7 @@ else
 
                     <p>
                         <label for="image">Image Filename:</label>
-                        <input type="file" name="cat_image" id="cat_image">
+                        <input class="form-control" type="file" name="cat_image" id="cat_image">
                     </p>
                     
                     <!-- Hidden input for the primary key -->
