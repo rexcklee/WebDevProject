@@ -140,10 +140,6 @@ div#main_menu {
     background-color: rgb(255, 255, 255, 0.6);
 }
 
-div#main_menu a{
-    /*opacity: 1;*/
-}
-
 #menu_table {
     background-color: #ffffff;
 }

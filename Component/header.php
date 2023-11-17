@@ -2,8 +2,8 @@
     <nav class="navbar navbar-expand-xl bg-light navbar-light">
         <div class="container-fluid">
             <div class="justify-content-start">
-                <img src="UploadImage/TempuraShrimp.jpg" alt="" width="100" height="100">
-                <a href="index.php" id="home_icon" class="navbar-brand d-none d-lg-inline">Oishii Japanese Restaurant</a>
+                <img src="Image/Oishii02.png" alt="" width="100" height="100">
+                <a href="index.php" id="home_icon" class="navbar-brand d-none d-lg-inline align-middle">Oishii Japanese Restaurant</a>
             </div>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
