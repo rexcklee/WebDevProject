@@ -46,14 +46,16 @@ else
     <title>Edit this Post!</title>
 </head>
 <body>
-    
+<?php include('Component\header.php'); ?>    
     <div id="webpage" class="container-fluid">
-        <?php include('Component\header.php'); ?>
 
-        <div id="dish-info">
-                    <h2><?= $row['dish_name'] ?></h2>
-                    <p><?= $row['dish_description'] ?></p>
-                    <p><?= $row['dish_prices'] ?></p>
+    <div id="main_menu" class="container-md">
+                    <div class="d-flex justify-content-between">
+                    <p class="text-start my-4 fs-1 fw-bold"><?= $row['dish_name'] ?></p>
+                    <p class="text-start my-4 fs-1 fw-bold">$<?= $row['dish_prices'] ?></p>
+                    </div>
+                    <p class="text-start fs-2"><?= $row['dish_description'] ?></p>
+                    
         </div>
 
         <div id="footer">

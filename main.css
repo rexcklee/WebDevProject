@@ -7,6 +7,10 @@ label {
     text-align: left;
     padding: 20px 30px;
     background: #ffffff;
+    background-image: url('Uploadimage/background.jpg');
+    background-position: center;
+    background-size: cover;
+    min-height: 100vh;
 }
 
 #home_icon {
@@ -21,11 +25,19 @@ label {
     font-family: 'Gabarito', cursive;
     font-size: x-large;
     font-weight: bold;
+
 }
 
 #dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_description, #cat_image{
     font-family: 'Gabarito', cursive;
     width: 30em;
+}
+
+#food-category {
+    color: rgb(0, 0, 0);
+    font-family: 'Gabarito', cursive;
+    font-size: x-large;
+    font-weight: bold;
 }
 
 #sort_select {
@@ -121,9 +133,19 @@ ul#admin_menu li a:hover {
     color: #ffffff;
 }
 
-div#main_content {
-    border: 5px solid #4d70da;
-    padding: 15px;
+div#main_menu {
+    border: 5px solid #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    background-color: rgb(255, 255, 255, 0.6);
+}
+
+div#main_menu a{
+    /*opacity: 1;*/
+}
+
+#menu_table {
+    background-color: #ffffff;
 }
 
 h1, h2 {

@@ -25,20 +25,22 @@
     <title>Oishii Japanese Restaurant</title>
 </head>
 <body>
-    <div id="webpage" class="container-fluid">        
-        <?php include('Component\header.php'); ?>
+    <?php include('Component\header.php'); ?>
+
+    <div id="webpage" class="container-fluid">              
 
         <div id="index-page" class="container-md">
-            <p>This is the first page of the Oishii Japanese Restaurant</p>
+            <p class="text-center text-success fs-3 fw-bold">This is the first page of the Oishii Japanese Restaurant</p>
 
-            <p>Opening Hours</p>
+            <p class="text-center text-success fs-3 fw-bold">Opening Hours</p>
 
-            <p>Location</p>
+            <p class="text-center text-success fs-3 fw-bold">Location</p>
         </div>
         
         <div id="footer">
             Copyright 2023 - Rights reserved by Rex
         </div> 
+    
     </div> 
 </body>
 </html>

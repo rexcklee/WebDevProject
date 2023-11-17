@@ -23,7 +23,6 @@ if (isset($_GET['food_category_id']))
     // Execute the SELECT and fetch the single row returned.
     $statement->execute();
 
-
     $query_cat = "SELECT * FROM foodcategories WHERE food_category_id = :food_category_id";
     $statement_cat = $db->prepare($query_cat);
     $statement_cat->bindValue(':food_category_id', $food_category_id, PDO::PARAM_INT);
@@ -52,27 +51,28 @@ else
     <title>Edit this Post!</title>
 </head>
 <body>
-    
-<div id="webpage" class="container-fluid">
-    
-    <?php include('Component\header.php'); ?>
+    <?php include('Component\header.php'); ?>  
 
-        <div id="main_content">
+    <div id="webpage" class="container-fluid">
+
+        <div id="main_menu" class="container-md">
          
-        <h1> <?= $row_cat['food_category_name'] ?> </h1>
-        <?php if ($row_cat['food_category_image'] != ""): ?>
-        <div id="large-images">
-            <img src="UploadImage/<?= $row_cat['food_category_image'] ?>"/>
-        </div>
-        <?php endif ?>
+            <?php $upper_food_category_name = strtoupper($row_cat['food_category_name']); ?>
+            <p class="text-center text-black fs-1 fw-bold"> <?= $upper_food_category_name ?> </p>
+            
+            <?php if ($row_cat['food_category_image'] != ""): ?>
+                <div id="large-images">
+                    <img src="UploadImage/<?= $row_cat['food_category_image'] ?>"/>
+                </div>
+            <?php endif ?>
 
-        <!-- table of all categories -->
-        <table class="table table-hover">
+            <!-- table of all categories -->
+            <table id="menu_table" class="table table-warning table-borderless table-hover">
                 <thead>
                     <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Dish Name</th>
-                    <th scope="col">Price</th>
+                        <th scope="col"></th>
+                        <th scope="col">Dish Name</th>
+                        <th scope="col">Price</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,8 +81,8 @@ else
                         <?php $row_no ++; ?>                       
                         <tr>
                             <th scope="row"><?= $row_no ?></th>
-                            <td><a id="dish-name" href="menu_dish_page.php?dish_id=<?= $row['dish_id'] ?>"><?= $row['dish_name'] ?></a></td>
-                            <td><?= $row['dish_prices'] ?></td>
+                            <td><a class="text-decoration-none text-dark" id="dish-name" href="menu_dish_page.php?dish_id=<?= $row['dish_id'] ?>"><?= $row['dish_name'] ?></a></td>
+                            <td><a class="text-decoration-none text-dark" id="dish-name" href="menu_dish_page.php?dish_id=<?= $row['dish_id'] ?>">$<?= $row['dish_prices'] ?></a></td>
                         </tr>
                     <?php endwhile ?>
                 </tbody>
@@ -92,7 +92,8 @@ else
 
         <div id="footer">
             Copyright 2023 - Rights reserved by Rex
-        </div> 
+        </div>
+
     </div> 
 </body>
 </html>

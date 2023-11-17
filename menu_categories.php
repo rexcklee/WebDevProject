@@ -57,35 +57,30 @@ $statement_cat_query->execute();
     <title>Oishii Japanese Restaurant</title>
 </head>
 <body>
-    <div id="webpage" class="container-fluid">
-        <?php include('Component\header.php'); ?>
+    <?php include('Component\header.php'); ?>
 
-        <div id="main_menu">
+    <div id="webpage" class="container-fluid">
+
+        <div id="main_menu" class="container-md">
 
             <!-- table of all categories -->
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Category</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $row_no = 0; ?>
-                    <?php while($row = $statement_cat_query->fetch()): ?>
-                        <?php $row_no ++; ?>                       
-                        <tr>
-                            <th scope="row"><?= $row_no ?></th>
-                            <td><a id="food-category" href="menu_dishes.php?food_category_id=<?= $row['food_category_id'] ?>"><?= $row['food_category_name'] ?></a></td>
-                        </tr>
-                    <?php endwhile ?>
-                </tbody>
-            </table>
+            <div class="mx-auto w-25" >
+            
+                <p class="text-center text-black fs-1 fw-bold"> MENU </p>
+                    
+                <?php while($row = $statement_cat_query->fetch()): ?>
+                    <?php $upper_food_category_name = strtoupper($row['food_category_name']); ?>
+                    <p class="text-center my-4"><a id="food-category" href="menu_dishes.php?food_category_id=<?= $row['food_category_id'] ?>"><?= $upper_food_category_name?></a></p>
+                <?php endwhile ?>
+
+            </div>
+
         </div>
         
         <div id="footer">
             Copyright 2023 - Rights reserved by Rex
-        </div> 
+        </div>
+         
     </div> 
 </body>
 </html>
