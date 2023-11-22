@@ -7,6 +7,8 @@
     Description: Web Dev 2 Final Project
 
 ****************/
+require('connect.php');
+
 
 ?>
 

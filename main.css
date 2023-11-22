@@ -16,16 +16,20 @@ label {
 #home_icon {
     color: #000000;
     font-family: 'Gabarito', cursive;
-    font-size: xx-large;
+    font-size: x-large;
     font-weight: bold;
 }
 
 #menu_item {
     color: #000000;
     font-family: 'Gabarito', cursive;
-    font-size: x-large;
+    font-size:large;
     font-weight: bold;
+}
 
+#search_word, #search_food_cat_id {
+    width: 8em;
+    font-size: medium;
 }
 
 #dish_name, #dish_description, #dish_prices, #food_category_id, #food_category_name, #food_category_image, #food_category_description, #cat_image{
