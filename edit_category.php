@@ -11,7 +11,7 @@ require('authenticate.php');
 require('connect.php');
 require('validation.php');
 
-function file_upload_path($original_filename, $upload_subfolder_name = 'UploadImage') {
+function file_path($original_filename, $upload_subfolder_name = 'UploadImage') {
     $current_folder = dirname(__FILE__);
     $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
     return join(DIRECTORY_SEPARATOR, $path_segments);
@@ -38,11 +38,26 @@ if (isset($_POST['command']))
     {   
         $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
         $food_category_image = $_POST['food_category_image'];
-    
+        
+        if ($_POST['delete_image'] == 'delete'){
+            $food_category_image = $_POST['food_category_image'];
+            $delete_image_path       = file_path($food_category_image);
+            if (file_exists($delete_image_path)) {
+                if (unlink($delete_image_path)) {
+                    echo 'File deleted successfully.';
+                    $food_category_image = "";
+                } else {
+                    echo 'Unable to delete the file.';
+                }
+            } else {
+                echo 'File does not exist.';
+            }
+        }
+
         if ($image_upload_detected) {
             $image_filename       = $_FILES['cat_image']['name'];
             $temporary_image_path = $_FILES['cat_image']['tmp_name'];
-            $new_image_path       = file_upload_path($image_filename);
+            $new_image_path       = file_path($image_filename);
             
             if (file_is_an_image($temporary_image_path, $new_image_path)) {
                 $food_category_image = $image_filename;
@@ -145,15 +160,27 @@ else
                         <textarea class="form-control" name="food_category_description" id="food_category_description"><?= $row['food_category_description'] ?></textarea>
                     </p>
 
+                    <?php if ($row['food_category_image'] != ""): ?>
+                    <p>
+                        <label for="food_category_image">Image File</label>
+                        <input class="form-control" name="food_category_image" id="food_category_image" value="<?= $row['food_category_image'] ?>">
+                        <input type="checkbox" id="delete_image" name="delete_image" value="delete">
+                        <label for="delete_image"> Delete this image </label><br>
+                    </p>
+                    <?php endif ?>
+
                     <p>
                         <label for="image">Update Image Filename</label>
                         <input class="form-control" type="file" name="cat_image" id="cat_image">
                     </p>
                     
+                    
+
                     <!-- Hidden input for the primary key -->
                     <input type="hidden" name="food_category_id" value="<?= $row['food_category_id'] ?>">
-                    <input type="hidden" name="food_category_image" value="<?= $row['food_category_image'] ?>">
-
+                    <?php if ($row['food_category_image'] == ""): ?>
+                        <input type="hidden" name="food_category_image" value="<?= $row['food_category_image'] ?>">
+                    <?php endif ?>
                     <p>
                         <button type="submit" class="btn btn-primary" name="command" value="Update">Update</button>
                     </p>
