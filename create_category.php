@@ -30,18 +30,40 @@ function file_is_an_image($temporary_path, $new_path) {
     return $file_extension_is_valid && $mime_type_is_valid;
 }
 
+function resize_an_image($image_path) {
+    // Set the new image size
+    $new_width  = 1500;
+    $new_height = 1000;
+
+    // Load the image
+    $thumb = imagecreatetruecolor($new_width, $new_height);
+    $source = imagecreatefromjpeg($image_path);
+    // Get the source image size
+    list($width, $height) = getimagesize($image_path);
+
+    // Resize the image
+    imagecopyresized($thumb, $source, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    imagejpeg($thumb, $image_path);
+
+    return $image_path;
+}
+
 // Insert new row if input is valid, else direct to error message page.
 if ($_POST && input_is_valid())
 {
     $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
     $food_category_image = "";
 
-    if ($image_upload_detected) {
+    if ($image_upload_detected)
+    {
         $image_filename       = $_FILES['cat_image']['name'];
         $temporary_image_path = $_FILES['cat_image']['tmp_name'];
         $new_image_path       = file_upload_path($image_filename);
 
-        if (file_is_an_image($temporary_image_path, $new_image_path)) {
+        if (file_is_an_image($temporary_image_path, $new_image_path))
+        {
+            $temporary_image_path = resize_an_image($temporary_image_path);
+            
             $food_category_image = $image_filename;
             move_uploaded_file($temporary_image_path, $new_image_path);
         }
