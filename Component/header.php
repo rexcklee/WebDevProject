@@ -26,7 +26,7 @@ $header_cat_query = "SELECT * FROM foodcategories ORDER BY food_category_id";
             <div class="justify-content-start">
                 
                 <?php if(isset($_SESSION['username'])): ?>
-                    <p class="text-warning fw-bold my-auto"> Login as: <?= $_SESSION['username'] ?> </p>
+                    <p class="text-warning fw-bold my-auto"> Welcome, <?= $_SESSION['username'] ?>! </p>
                 <?php endif ?> 
                 
             </div>

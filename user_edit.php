@@ -31,17 +31,19 @@ if (isset($_POST['command']))
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
         $username = filter_input(INPUT_POST, 'create_username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, 'create_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $email = filter_input(INPUT_POST, 'create_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $admin = ($_POST['admin_right'] == 'admin_right')? 1 : 0;
         $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
         // Build the parameterized SQL query and bind to the above sanitized values.
-        $query     = "UPDATE users SET username = :username, password = :password, admin = :admin WHERE user_id = :user_id";
+        $query     = "UPDATE users SET username = :username, password = :password, email = :email, admin = :admin WHERE user_id = :user_id";
 
         $statement = $db->prepare($query);
 
         //  Bind values to the parameters
         $statement->bindValue(':username', $username);
         $statement->bindValue(':password', $password);
+        $statement->bindValue(':email', $email);
         $statement->bindValue(':admin', $admin);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         
@@ -53,7 +55,7 @@ if (isset($_POST['command']))
         exit;
     }
     // Handle input invalid error
-    else if (($_POST['command']=='Update') && !input_is_valid() && isset($_POST['food_category_id']))
+    else if (($_POST['command']=='Update') && !user_create_input_is_valid() && isset($_POST['user_id']))
     {      
         header('Location: error.php');
     }
@@ -122,6 +124,10 @@ else
                     <p>
                         <label for="create_password">Password</label>
                         <input class="form-control" name="create_password" id="create_password" value="<?= $row['password'] ?>"/>
+                    </p>
+                    <p>
+                        <label for="create_email">Email</label>
+                        <input class="form-control" name="create_email" id="create_email" value="<?= $row['email'] ?>"/>
                     </p>
 
                     

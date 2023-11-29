@@ -9,8 +9,6 @@
 ****************/
 require('connect.php');
 
-
-
 if (isset($_POST['login'])){
 
     session_start();
@@ -33,7 +31,8 @@ if (isset($_POST['login'])){
         header('Location: index.php');
     }
     else{
-        //header('Location: error.php');
+        $login_error = true;
+        session_destroy();
     }
 
 
@@ -60,11 +59,14 @@ if (isset($_POST['login'])){
     <div id="webpage" class="container-fluid">
 
         <div id="login" class="container-sm">
+            <?php if(isset($login_error)): ?>
+                <p class="text-danger fs-3"> Login invalid! </p>
+            <?php endif ?>
             <form action="login.php" method="post">
                 <fieldset>
                     <legend class="mx-auto">LOGIN</legend>
                     <p> 
-                        <label for="username">Email:</label>
+                        <label for="username">Username:</label>
                         <input class="form-control" name="username" id="username"/>
                     </p>
                     <p>

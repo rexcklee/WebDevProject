@@ -56,6 +56,7 @@ $statement->execute();
                     <th scope="col">#</th>
                     <th scope="col">Username</th>
                     <th scope="col">Password</th>
+                    <th scope="col">Email</th>
                     <th scope="col">Admin</th>
                     <th scope="col">Action</th>
                     </tr>
@@ -68,6 +69,7 @@ $statement->execute();
                             <th scope="row"><?= $row_no ?></th>
                             <td><?= $row['username'] ?></td>
                             <td><?= $row['password'] ?></td>
+                            <td><?= $row['email'] ?></td>
                             <td><?= (($row['admin'] == 1)? "Yes":"No") ?></td>
                             <td><a id="edit-button" href="user_edit.php?user_id=<?= $row['user_id'] ?>">Edit</a></td>
                         </tr>

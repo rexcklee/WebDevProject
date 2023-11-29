@@ -17,15 +17,17 @@ if ($_POST && user_create_input_is_valid())
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
     $username = filter_input(INPUT_POST, 'create_username', FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, 'create_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'create_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $admin = ($_POST['admin_right'] == 'admin_right')? 1 : 0;
 
     //  Build the parameterized SQL query and bind to the above sanitized values.
-    $query = "INSERT INTO users (username, password, admin) VALUES (:username, :password, :admin)";
+    $query = "INSERT INTO users (username, password, email, admin) VALUES (:username, :password, :email, :admin)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
     $statement->bindValue(':username', $username);
     $statement->bindValue(':password', $password);
+    $statement->bindValue(':email'   , $email   );
     $statement->bindValue(':admin'   , $admin   );
     
     //  Execute the INSERT.
@@ -77,8 +79,12 @@ else if ($_POST && !user_create_input_is_valid())
                 <fieldset>
                     <legend>Create User</legend>                 
                         <p> 
-                            <label for="create_username">Email:</label>
+                            <label for="create_username">Username:</label>
                             <input class="form-control" name="create_username" id="create_username" />
+                        </p>
+                        <p>
+                            <label for="create_email">Email:</label>
+                            <input class="form-control" name="create_email" id="create_email">
                         </p>
                         <p>
                             <label for="create_password">Password:</label>

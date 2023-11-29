@@ -14,16 +14,18 @@ require('validation.php');
 if ($_POST && register_input_is_valid())
 {
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $email    = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     
     //  Build the parameterized SQL query and bind to the above sanitized values.
-    $query = "INSERT INTO users (username, password) VALUES (:username, :password)";
+    $query = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
     $statement->bindValue(':username', $username);
     $statement->bindValue(':password', $password);
+    $statement->bindValue(':email'   , $email   );
     
     //  Execute the INSERT.
     if($statement->execute())
@@ -65,8 +67,12 @@ else if ($_POST && !register_input_is_valid())
                 <fieldset>
                     <legend>USER REGISTRATION</legend>
                     <p> 
-                        <label for="username">Email:</label>
+                        <label for="username">Username:</label>
                         <input class="form-control" name="username" id="username" />
+                    </p>
+                    <p> 
+                        <label for="email">Email:</label>
+                        <input class="form-control" name="email" id="email" />
                     </p>
                     <p>
                         <label for="password">Password:</label>
