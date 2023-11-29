@@ -34,7 +34,8 @@ if ($_POST && register_input_is_valid())
 // Handle input invalid error
 else if ($_POST && !register_input_is_valid()) 
 {
-    header('Location: error.php');
+    $input_error = true;
+    //header('Location: error.php');
 }
 
 ?>
@@ -58,6 +59,9 @@ else if ($_POST && !register_input_is_valid())
     <div id="webpage" class="container-fluid">
 
         <div id="login" class="container-sm">
+            <?php if(isset($input_error)): ?>
+                <p class="text-danger fs-3"> Registration error! Please try again! </p>
+            <?php endif ?>
             <form action="login_register.php" method="post">
                 <fieldset>
                     <legend>USER REGISTRATION</legend>
