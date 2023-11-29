@@ -28,7 +28,7 @@ label {
 }
 
 #search_word, #search_food_cat_id {
-    width: 8em;
+    width: 6em;
     font-size: medium;
 }
 
@@ -67,7 +67,7 @@ fieldset {
 }
 
 #wrapper {
-    width: 1000px;
+    width: 1300px;
     margin: 0px auto;
     text-align: left;
     border: 1px solid grey;
@@ -142,6 +142,15 @@ div#main_menu {
     border-radius: 20px;
     padding: 25px;
     background-color: rgb(255, 255, 255, 0.6);
+}
+
+div#login {
+    border: 5px solid #ffffff;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 25px;
+    background-color: rgb(255, 255, 255, 0.6);
+    max-width: 20em;
 }
 
 #menu_table {

@@ -30,17 +30,18 @@ $header_cat_query = "SELECT * FROM foodcategories ORDER BY food_category_id";
             <div class="collapse navbar-collapse justify-content-end" id="navbarText">
 
                 <ul id="restaurant_menu" class="navbar-nav">
-                    <li class="nav-item mx-2"><a id="menu_item" class="nav-link" href="index.php">HOME</a></li>
-                    <li class="nav-item mx-2"><a id="menu_item" class="nav-link" href="menu_categories.php">MENU</a></li>
-                    <li class="nav-item mx-2"><a id="menu_item" class="nav-link" href="contact_us.php">CONTACT</a></li>
+                    <li class="nav-item"><a id="menu_item" class="nav-link" href="index.php">HOME</a></li>
+                    <li class="nav-item"><a id="menu_item" class="nav-link" href="menu_categories.php">MENU</a></li>
+                    <li class="nav-item"><a id="menu_item" class="nav-link" href="contact_us.php">CONTACT</a></li>
+                    <li class="nav-item"><a id="menu_item" class="nav-link" href="login.php">LOGIN</a></li>
                 </ul>
                 
                 <form class="d-flex" action="dish_search.php" method="post" >
 
-                    <input class="form-control" name="search_word" id="search_word" placeholder="Search Menu"/>
+                    <input class="form-control" name="search_word" id="search_word" placeholder="Search"/>
                     
                     <select class="form-select" name="search_food_cat_id" id="search_food_cat_id" >
-                        <option value=999 >All Dishes</option>                           
+                        <option value=999 >Menu</option>                           
                         <?php while($header_cat_row = $header_cat_statement->fetch()): ?>
                             <option value="<?= $header_cat_row['food_category_id'] ?>"><?= $header_cat_row['food_category_name'] ?></option>
                         <?php endwhile ?>
