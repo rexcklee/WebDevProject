@@ -32,11 +32,8 @@ require('connect.php');
 
         <div id="index-page" class="container-md">
 
-            <p class="text-center text-success fs-3 fw-bold">This is the first page of the Oishii Japanese Restaurant</p>
+            <p class="text-center text-success fs-3 fw-bold">This is our contact information</p>
 
-            <p class="text-center text-success fs-3 fw-bold">Opening Hours</p>
-
-            <p class="text-center text-success fs-3 fw-bold">Location</p>
         </div>
         
         <div id="footer">

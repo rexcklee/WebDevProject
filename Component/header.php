@@ -7,6 +7,12 @@
     Description: Web Dev 2 Final Project
 
 ****************/
+session_start();
+$admin_right = false;
+if (isset($_SESSION['admin']))
+{
+    $admin_right = ($_SESSION['admin']==1)? true: false;
+}
 
 $header_cat_query = "SELECT * FROM foodcategories ORDER BY food_category_id";
 
@@ -15,7 +21,27 @@ $header_cat_query = "SELECT * FROM foodcategories ORDER BY food_category_id";
     $header_cat_statement->execute(); 
 
 ?>
-    
+    <nav class="navbar navbar-expand-xl bg-dark navbar-light">
+        <div class="container-fluid">
+            <div class="justify-content-start">
+                
+                <?php if(isset($_SESSION['username'])): ?>
+                    <p class="text-warning fw-bold my-auto"> Login as: <?= $_SESSION['username'] ?> </p>
+                <?php endif ?> 
+                
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarText">
+                <ul id="login_menu" class="navbar-nav">
+                    <?php if($admin_right): ?>
+                    <li class="nav-item"><a id="login_menu_item" class="nav-link text-danger fw-bold" href="admin.php">ADMIN PAGE</a></li>
+                    <?php endif ?>    
+                    <li class="nav-item"><a id="login_menu_item" class="nav-link" href="login_register.php">REGISTER</a></li>
+                    <li class="nav-item"><a id="login_menu_item" class="nav-link" href="login.php">LOGIN</a></li>
+                    <li class="nav-item"><a id="login_menu_item" class="nav-link" href="logout.php">LOGOUT</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <nav class="navbar navbar-expand-xl bg-light navbar-light">
         <div class="container-fluid">
             <div class="justify-content-start">
@@ -33,7 +59,6 @@ $header_cat_query = "SELECT * FROM foodcategories ORDER BY food_category_id";
                     <li class="nav-item"><a id="menu_item" class="nav-link" href="index.php">HOME</a></li>
                     <li class="nav-item"><a id="menu_item" class="nav-link" href="menu_categories.php">MENU</a></li>
                     <li class="nav-item"><a id="menu_item" class="nav-link" href="contact_us.php">CONTACT</a></li>
-                    <li class="nav-item"><a id="menu_item" class="nav-link" href="login.php">LOGIN</a></li>
                 </ul>
                 
                 <form class="d-flex" action="dish_search.php" method="post" >

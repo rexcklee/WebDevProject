@@ -28,7 +28,7 @@ if ($_POST && register_input_is_valid())
     //  Execute the INSERT.
     if($statement->execute())
     {
-        header('Location: login.php');;
+        header('Location: login.php');
     }
 }
 // Handle input invalid error

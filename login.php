@@ -9,24 +9,34 @@
 ****************/
 require('connect.php');
 
-// Retrieve dish information to be EDIT, if id GET parameter is in URL.
-if (isset($_GET['dish_id']))
-{ 
-    // Sanitize the id
-    $dish_id = filter_input(INPUT_GET, 'dish_id', FILTER_SANITIZE_NUMBER_INT);
-    
+
+
+if (isset($_POST['login'])){
+
+    session_start();
+
+    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
     // Build the parametrized SQL query using the filtered id.
-    $query = "SELECT * FROM menuitems WHERE dish_id = :dish_id";
+    $query = "SELECT * FROM users WHERE username = :username AND password = :password";
     $statement = $db->prepare($query);
-    $statement->bindValue(':dish_id', $dish_id, PDO::PARAM_INT);
-    
-    // Execute the SELECT and fetch the single row returned.
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':password', $password);
     $statement->execute();
-    $row = $statement->fetch();
-}
-else 
-{
-    $id = false; // False if we are not UPDATING or SELECTING.
+
+    if($row = $statement->fetch()){
+        $_SESSION['id']=$row['user_id'];
+        $_SESSION['username']=$row['username'];
+        $_SESSION['admin']=$row['admin'];
+
+        header('Location: index.php');
+    }
+    else{
+        //header('Location: error.php');
+    }
+
+
 }
 
 ?>
@@ -50,19 +60,19 @@ else
     <div id="webpage" class="container-fluid">
 
         <div id="login" class="container-sm">
-            <form action="login_process.php" method="post">
+            <form action="login.php" method="post">
                 <fieldset>
                     <legend class="mx-auto">LOGIN</legend>
                     <p> 
                         <label for="username">Email:</label>
-                        <input class="form-control" name="username" id="username" />
+                        <input class="form-control" name="username" id="username"/>
                     </p>
                     <p>
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" name="password" id="password"></textarea>
+                        <input type="password" class="form-control" name="password" id="password">
                     </p>
                     <p>                       
-                        <button type="submit" class="btn btn-primary" name="command">LOGIN</button>
+                        <button type="submit" class="btn btn-primary" name="login">LOGIN</button>
                     </p>
                     <p> <a id="register" class="link-primary fw-bold" href="login_register.php">I am a new user, register now!</a></p>
                     

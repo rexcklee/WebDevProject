@@ -27,6 +27,13 @@ label {
     font-weight: bold;
 }
 
+#login_menu_item{
+    color: #ffffff;
+    font-family: 'Gabarito', cursive;
+    font-size: medium;
+    
+}
+
 #search_word, #search_food_cat_id {
     width: 6em;
     font-size: medium;
