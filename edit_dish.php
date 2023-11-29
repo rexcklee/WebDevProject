@@ -114,6 +114,8 @@ else
             <li><a href="create_dish.php">New Dish</a></li>
             <li><a href="food_categories.php">Categories</a></li>
             <li><a href="create_category.php">New Category</a></li>
+            <li><a href="users.php">Users</a></li>
+            <li><a href="create_user.php">New User</a></li>
         </ul> 
 
         <div id="main_content">

@@ -39,4 +39,20 @@ function register_input_is_valid()
     return $input_is_valid;
 }
 
+function user_create_input_is_valid() 
+{
+    $input_is_valid = true;
+
+    $username = $_POST["create_username"];
+    $password = $_POST["create_password"];
+
+    if (!filter_var($username, FILTER_VALIDATE_EMAIL) || 
+        (strlen($password) < 6))
+        {
+            $input_is_valid = false;
+        }
+
+    return $input_is_valid;
+}
+
 ?>

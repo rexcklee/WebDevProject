@@ -12,43 +12,32 @@ require('connect.php');
 require('validation.php');
 
 // Insert new row if input is valid, else direct to error message page.
-if ($_POST && input_is_valid())
+if ($_POST && user_create_input_is_valid())
 {
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
-    $dish_name = filter_input(INPUT_POST, 'dish_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $dish_description = filter_input(INPUT_POST, 'dish_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $dish_prices = filter_input(INPUT_POST, 'dish_prices', FILTER_SANITIZE_NUMBER_FLOAT);
-    $food_category_id = filter_input(INPUT_POST, 'food_category_id', FILTER_SANITIZE_NUMBER_INT);
-    
+    $username = filter_input(INPUT_POST, 'create_username', FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, 'create_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    $admin = ($_POST['admin_right'] == 'admin_right')? 1 : 0;
+
     //  Build the parameterized SQL query and bind to the above sanitized values.
-    $query = "INSERT INTO menuitems (dish_name, dish_description, dish_prices, food_category_id) VALUES (:dish_name, :dish_description, :dish_prices, :food_category_id)";
+    $query = "INSERT INTO users (username, password, admin) VALUES (:username, :password, :admin)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
-    $statement->bindValue(':dish_name', $dish_name);
-    $statement->bindValue(':dish_description', $dish_description);
-    $statement->bindValue(':dish_prices', $dish_prices);
-    $statement->bindValue(':food_category_id', $food_category_id);
+    $statement->bindValue(':username', $username);
+    $statement->bindValue(':password', $password);
+    $statement->bindValue(':admin'   , $admin   );
     
     //  Execute the INSERT.
     if($statement->execute())
     {
-        header('Location: admin.php');;
+        header('Location: users.php');;
     }
 }
 // Handle input invalid error
-else if ($_POST && !input_is_valid()) 
+else if ($_POST && !user_create_input_is_valid()) 
 {
     header('Location: error.php');
-}
-// Obtain Food categories from "foodcategories" for selection
-else 
-{
-    $query = "SELECT * FROM foodcategories ORDER BY food_category_id";
-
-    $statement = $db->prepare($query);
-
-    $statement->execute(); 
 }
 
 ?>
@@ -76,38 +65,29 @@ else
 
         <ul id="admin_menu">
             <li><a href="admin.php">Food Items</a></li>
-            <li><a href="create_dish.php" class="active">New Dish</a></li>
+            <li><a href="create_dish.php">New Dish</a></li>
             <li><a href="food_categories.php">Categories</a></li>
             <li><a href="create_category.php">New Category</a></li>
             <li><a href="users.php">Users</a></li>
-            <li><a href="create_user.php">New User</a></li>
+            <li><a href="create_user.php" class="active">New User</a></li>
         </ul> 
 
         <div id="main_content">
-            <form action="create_dish.php" method="post">
+            <form action="create_user.php" method="post">
                 <fieldset>
-                    <legend>New Dish</legend>                 
+                    <legend>Create User</legend>                 
                         <p> 
-                            <label for="dish_name">Dish Name</label>
-                            <input class="form-control" name="dish_name" id="dish_name" />
+                            <label for="create_username">Email:</label>
+                            <input class="form-control" name="create_username" id="create_username" />
                         </p>
                         <p>
-                            <label for="dish_description">Dish Description</label>
-                            <textarea class="form-control" name="dish_description" id="dish_description"></textarea>
+                            <label for="create_password">Password:</label>
+                            <input type="password" class="form-control" name="create_password" id="create_password">
                         </p>
                         <p> 
-                            <label for="dish_prices">Dish Price</label>
-                            <input class="form-control" name="dish_prices" id="dish_prices" />
+                            <input type="checkbox" class="form-check-input" id="admin_right" name="admin_right" value="admin_right">
+                            <label for="admin_right" class="form-check-label"> Admin right </label><br>
                         </p>
-                        <p> 
-                            <label for="food_category_id">Category ID</label>
-                            <select class="form-select" name="food_category_id" id="food_category_id" >
-                                <option selected>-- Food_category --</option>                           
-                                <?php while($row = $statement->fetch()): ?>
-                                    <option value="<?= $row['food_category_id'] ?>"><?= $row['food_category_name'] ?></option>
-                                <?php endwhile ?>
-                            </select>
-                        </p>                        
                         <p>                       
                             <button type="submit" class="btn btn-primary" name="command">Create</button>
                         </p>

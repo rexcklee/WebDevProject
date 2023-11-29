@@ -35,7 +35,6 @@ if ($_POST && register_input_is_valid())
 else if ($_POST && !register_input_is_valid()) 
 {
     $input_error = true;
-    //header('Location: error.php');
 }
 
 ?>
@@ -71,7 +70,7 @@ else if ($_POST && !register_input_is_valid())
                     </p>
                     <p>
                         <label for="password">Password:</label>
-                        <input type="password" class="form-control" name="password" id="password"></textarea>
+                        <input type="password" class="form-control" name="password" id="password">
                     </p>
                     <p>
                         <label for="password_confirm">Confirm password:</label>
