@@ -57,4 +57,20 @@ function user_create_input_is_valid()
     return $input_is_valid;
 }
 
+function user_edit_input_is_valid() 
+{
+    $input_is_valid = true;
+
+    $username = $_POST["create_username"];
+    $password = $_POST["create_password"];
+    $email    = $_POST["create_email"];
+
+    if (($username == null) || !filter_var($email, FILTER_VALIDATE_EMAIL) || 
+        ((strlen($password) < 6) && ($password !== "")))
+        {
+            $input_is_valid = false;
+        }
+
+    return $input_is_valid;
+}
 ?>

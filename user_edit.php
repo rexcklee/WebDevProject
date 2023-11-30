@@ -26,7 +26,7 @@ if (isset($_POST['command']))
         header("Location: users.php");
     }
     // Handle dish UPDATE
-    else if (($_POST['command']=='Update') && user_create_input_is_valid() && isset($_POST['user_id']))
+    else if (($_POST['command']=='Update') && user_edit_input_is_valid() && isset($_POST['user_id']))
     {   
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
         $username = filter_input(INPUT_POST, 'create_username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -35,14 +35,25 @@ if (isset($_POST['command']))
         $admin = ($_POST['admin_right'] == 'admin_right')? 1 : 0;
         $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
 
+        if ($password !== "")
+        {
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
         // Build the parameterized SQL query and bind to the above sanitized values.
         $query     = "UPDATE users SET username = :username, password = :password, email = :email, admin = :admin WHERE user_id = :user_id";
-
+        }
+        else 
+        {
+            $query     = "UPDATE users SET username = :username, email = :email, admin = :admin WHERE user_id = :user_id";
+        }
         $statement = $db->prepare($query);
 
         //  Bind values to the parameters
         $statement->bindValue(':username', $username);
-        $statement->bindValue(':password', $password);
+        if ($password !== "")
+        {
+        $statement->bindValue(':password', $password_hashed);
+        }
         $statement->bindValue(':email', $email);
         $statement->bindValue(':admin', $admin);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -55,7 +66,7 @@ if (isset($_POST['command']))
         exit;
     }
     // Handle input invalid error
-    else if (($_POST['command']=='Update') && !user_create_input_is_valid() && isset($_POST['user_id']))
+    else if (($_POST['command']=='Update') && !user_edit_input_is_valid() && isset($_POST['user_id']))
     {      
         header('Location: error.php');
     }
@@ -122,8 +133,8 @@ else
                         <input class="form-control" name="create_username" id="create_username" value="<?= $row['username'] ?>"/>
                     </p>
                     <p>
-                        <label for="create_password">Password</label>
-                        <input class="form-control" name="create_password" id="create_password" value="<?= $row['password'] ?>"/>
+                        <label for="create_password">New Password</label>
+                        <input class="form-control" name="create_password" id="create_password"/>
                     </p>
                     <p>
                         <label for="create_email">Email</label>

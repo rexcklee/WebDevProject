@@ -10,7 +10,7 @@
 require('authenticate.php');
 require('connect.php');
 
-$query = "SELECT * FROM users";
+$query = "SELECT * FROM users ORDER BY admin DESC";
 
 $statement = $db->prepare($query);
 

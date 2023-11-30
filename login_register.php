@@ -18,13 +18,15 @@ if ($_POST && register_input_is_valid())
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email    = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
     //  Build the parameterized SQL query and bind to the above sanitized values.
     $query = "INSERT INTO users (username, password, email) VALUES (:username, :password, :email)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $password_hashed);
     $statement->bindValue(':email'   , $email   );
     
     //  Execute the INSERT.

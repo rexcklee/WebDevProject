@@ -20,13 +20,15 @@ if ($_POST && user_create_input_is_valid())
     $email = filter_input(INPUT_POST, 'create_email', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $admin = ($_POST['admin_right'] == 'admin_right')? 1 : 0;
 
+    $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
     //  Build the parameterized SQL query and bind to the above sanitized values.
     $query = "INSERT INTO users (username, password, email, admin) VALUES (:username, :password, :email, :admin)";
     $statement = $db->prepare($query);
     
     //  Bind values to the parameters
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password', $password_hashed);
     $statement->bindValue(':email'   , $email   );
     $statement->bindValue(':admin'   , $admin   );
     

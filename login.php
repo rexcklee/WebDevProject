@@ -17,15 +17,18 @@ if (isset($_POST['login'])){
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     // Build the parametrized SQL query using the filtered id.
-    $query = "SELECT * FROM users WHERE username = :username AND password = :password";
+    //$query = "SELECT * FROM users WHERE username = :username AND password = :password";
+    $query = "SELECT * FROM users WHERE username = :username";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    //$statement->bindValue(':password', $password);
     $statement->execute();
 
-    if($row = $statement->fetch()){
+    //if($row = $statement->fetch()){
+    if(($row = $statement->fetch()) && (password_verify($password, $row['password'])))
+    {
         $_SESSION['id']=$row['user_id'];
-        $_SESSION['username']=$row['username'];
+        $_SESSION['username']=strtoupper($row['username']);
         $_SESSION['admin']=$row['admin'];
 
         header('Location: index.php');
