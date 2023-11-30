@@ -88,7 +88,7 @@ if ($_POST && input_is_valid())
     //  Execute the INSERT.
     if($statement->execute())
     {
-        header('Location: admin.php');;
+        header('Location: admin.php');
     }
 }
 // Handle input invalid error
