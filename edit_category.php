@@ -49,10 +49,10 @@ function resize_an_image($image_path) {
 }
 
 // Handle UPDATE
-if (isset($_POST['command']))
+if (isset($_POST['command']) && ($_POST['food_category_name'] !== ""))
 {
     // Handle category UPDATE
-    if (($_POST['command']=='Update') && input_is_valid() && isset($_POST['food_category_id']) && isset($_POST['food_category_image']))
+    if (($_POST['command']=='Update') && isset($_POST['food_category_id']) && isset($_POST['food_category_image']))
     {   
         $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
         $food_category_image = $_POST['food_category_image'];
@@ -122,11 +122,11 @@ if (isset($_POST['command']))
         header("Location: food_categories.php");
         exit;
     }
-    // Handle input invalid error
-    else if (($_POST['command']=='Update') && !input_is_valid() && isset($_POST['food_category_id']))
-    {      
-        header('Location: error.php');
-    }
+}
+// Handle input invalid error
+else if (isset($_POST['command']) && ($_POST['food_category_name'] == ""))
+{      
+    header('Location: error.php');
 }
 
 // Retrieve category information to be EDIT, if id GET parameter is in URL.

@@ -49,7 +49,7 @@ function resize_an_image($image_path) {
 }
 
 // Insert new row if input is valid, else direct to error message page.
-if ($_POST && input_is_valid())
+if ($_POST && ($_POST['food_category_name'] !== ""))
 {
     $image_upload_detected = isset($_FILES['cat_image']) && ($_FILES['cat_image']['error'] === 0);
     $food_category_image = "";
@@ -88,11 +88,11 @@ if ($_POST && input_is_valid())
     //  Execute the INSERT.
     if($statement->execute())
     {
-        header('Location: admin.php');
+        header('Location: food_categories.php');
     }
 }
 // Handle input invalid error
-else if ($_POST && !input_is_valid()) 
+else if ($_POST && ($_POST['food_category_name'] == "")) 
 {
     header('Location: error.php');
 } 

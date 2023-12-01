@@ -11,11 +11,20 @@
 // Check if input title and content is valid
 function input_is_valid() 
 {
-    $form_is_valid = true;
-    /*
-    Code later
-    */
-    return $form_is_valid;
+    $input_is_valid = true;
+    
+    $dish_name        = $_POST["dish_name"];
+    $dish_prices      = $_POST["dish_prices"];
+    $food_category_id = $_POST["food_category_id"];
+
+    if (($dish_prices < 0) || !filter_var($dish_prices, FILTER_VALIDATE_FLOAT) ||
+        ($dish_name == null) ||(strlen(str_replace($dish_name,""," ") == 0))||
+        !filter_var($food_category_id, FILTER_VALIDATE_INT))
+    {
+        $input_is_valid = false;
+    }
+
+    return $input_is_valid;
 }
 
 function register_input_is_valid() 

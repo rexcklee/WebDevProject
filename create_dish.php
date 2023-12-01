@@ -17,7 +17,7 @@ if ($_POST && input_is_valid())
     //  Sanitize user input to escape HTML entities and filter out dangerous characters.
     $dish_name = filter_input(INPUT_POST, 'dish_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $dish_description = filter_input(INPUT_POST, 'dish_description', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    $dish_prices = filter_input(INPUT_POST, 'dish_prices', FILTER_SANITIZE_NUMBER_FLOAT);
+    $dish_prices = filter_input(INPUT_POST, 'dish_prices', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
     $food_category_id = filter_input(INPUT_POST, 'food_category_id', FILTER_SANITIZE_NUMBER_INT);
     
     //  Build the parameterized SQL query and bind to the above sanitized values.
