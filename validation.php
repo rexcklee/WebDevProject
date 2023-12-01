@@ -17,8 +17,8 @@ function input_is_valid()
     $dish_prices      = $_POST["dish_prices"];
     $food_category_id = $_POST["food_category_id"];
 
-    if (($dish_prices < 0) || !filter_var($dish_prices, FILTER_VALIDATE_FLOAT) ||
-        ($dish_name == null) ||(strlen(str_replace($dish_name,""," ") == 0))||
+    if (($dish_prices < 0) || !is_numeric($dish_prices) ||
+        ($dish_name == null) ||(str_replace(" ","",$dish_name) == "")||
         !filter_var($food_category_id, FILTER_VALIDATE_INT))
     {
         $input_is_valid = false;
