@@ -18,6 +18,7 @@ if ($_POST && register_input_is_valid())
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $email    = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     
+    // use password_hash to hash a password
     $password_hashed = password_hash($password, PASSWORD_DEFAULT);
 
     //  Build the parameterized SQL query and bind to the above sanitized values.
@@ -63,7 +64,7 @@ else if ($_POST && !register_input_is_valid())
 
         <div id="login" class="container-sm">
             <?php if(isset($input_error)): ?>
-                <p class="text-danger fs-3"> Registration error! Please try again! </p>
+                <p class="text-danger fs-3"> Error! Please try again! Password must contain at least 6 characters.</p>
             <?php endif ?>
             <form action="login_register.php" method="post">
                 <fieldset>
@@ -77,7 +78,7 @@ else if ($_POST && !register_input_is_valid())
                         <input class="form-control" name="email" id="email" />
                     </p>
                     <p>
-                        <label for="password">Password:</label>
+                        <label for="password">Password: (at least 6 characters) </label>
                         <input type="password" class="form-control" name="password" id="password">
                     </p>
                     <p>
@@ -87,7 +88,6 @@ else if ($_POST && !register_input_is_valid())
                     <p>                       
                         <button type="submit" class="btn btn-primary" name="command">REGISTER</button>
                     </p>
-                    
                 </fieldset>
             </form>   
                     

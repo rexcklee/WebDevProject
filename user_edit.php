@@ -14,7 +14,7 @@ require('validation.php');
 // Handle UPDATE
 if (isset($_POST['command']))
 {
-    // Handle dish DELETE
+    // Handle user DELETE
     if ($_POST['command']=='Delete' && isset($_POST['user_id']))
     {
         $user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
@@ -22,10 +22,10 @@ if (isset($_POST['command']))
         $statement = $db->prepare($query);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $statement->execute();
-        // Direct to admin page after delete.
+        // Direct to users page after delete.
         header("Location: users.php");
     }
-    // Handle dish UPDATE
+    // Handle user UPDATE
     else if (($_POST['command']=='Update') && user_edit_input_is_valid() && isset($_POST['user_id']))
     {   
         // Sanitize user input to escape HTML entities and filter out dangerous characters.
@@ -37,10 +37,8 @@ if (isset($_POST['command']))
 
         if ($password !== "")
         {
-        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
-
-        // Build the parameterized SQL query and bind to the above sanitized values.
-        $query     = "UPDATE users SET username = :username, password = :password, email = :email, admin = :admin WHERE user_id = :user_id";
+            $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+            $query     = "UPDATE users SET username = :username, password = :password, email = :email, admin = :admin WHERE user_id = :user_id";
         }
         else 
         {
@@ -49,11 +47,11 @@ if (isset($_POST['command']))
         $statement = $db->prepare($query);
 
         //  Bind values to the parameters
-        $statement->bindValue(':username', $username);
         if ($password !== "")
         {
-        $statement->bindValue(':password', $password_hashed);
+            $statement->bindValue(':password', $password_hashed);
         }
+        $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
         $statement->bindValue(':admin', $admin);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -140,20 +138,19 @@ else
                         <label for="create_email">Email</label>
                         <input class="form-control" name="create_email" id="create_email" value="<?= $row['email'] ?>"/>
                     </p>
-
-                    
+                
                     <p>
-                    <?php if ($row['admin'] == 1): ?> 
-                        <input type="checkbox" class="form-check-input" id="admin_right" name="admin_right" value="admin_right" checked>
-                    <?php else: ?>
-                        <input type="checkbox" class="form-check-input" id="admin_right" name="admin_right" value="admin_right">
-                    <?php endif ?>
+                        <?php if ($row['admin'] == 1): ?> 
+                            <input type="checkbox" class="form-check-input" id="admin_right" name="admin_right" value="admin_right" checked>
+                        <?php else: ?>
+                            <input type="checkbox" class="form-check-input" id="admin_right" name="admin_right" value="admin_right">
+                        <?php endif ?>
                         <label for="admin_right" class="form-check-label"> Admin right </label><br>
-                        
                     </p>
                     
                     <!-- Hidden input for the primary key -->
                     <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
+
                     <p>
                         <button type="submit" class="btn btn-primary" name="command" value="Update">Update</button>
                         <button type="submit" class="btn btn-primary" name="command" value="Delete">Delete</button>

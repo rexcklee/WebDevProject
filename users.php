@@ -49,7 +49,7 @@ $statement->execute();
 
         <div id="main_content">
 
-            <!-- table of all food items -->
+            <!-- table of all users -->
             <table class="table table-hover">
                 <thead>
                     <tr>

@@ -16,15 +16,13 @@ if (isset($_POST['login'])){
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    // Build the parametrized SQL query using the filtered id.
-    //$query = "SELECT * FROM users WHERE username = :username AND password = :password";
     $query = "SELECT * FROM users WHERE username = :username";
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    //$statement->bindValue(':password', $password);
+
     $statement->execute();
 
-    //if($row = $statement->fetch()){
+    // use password_verify to verify hashed password
     if(($row = $statement->fetch()) && (password_verify($password, $row['password'])))
     {
         $_SESSION['id']=$row['user_id'];
@@ -79,11 +77,9 @@ if (isset($_POST['login'])){
                     <p>                       
                         <button type="submit" class="btn btn-primary" name="login">LOGIN</button>
                     </p>
-                    <p> <a id="register" class="link-primary fw-bold" href="login_register.php">I am a new user, register now!</a></p>
-                    
+                    <p><a id="register" class="link-primary fw-bold" href="login_register.php">I am a new user, register now!</a></p>
                 </fieldset>
             </form>   
-                    
         </div>
 
         <div id="footer">
