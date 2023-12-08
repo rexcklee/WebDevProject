@@ -43,9 +43,6 @@ require('connect.php');
             <div class="carousel-item">
                 <img src="Image/index03.jpg" class="rounded d-block w-100" alt="food-image">
             </div>
-            <div class="carousel-item">
-                <img src="Image/index04.jpg" class="rounded d-block w-100" alt="food-image">
-            </div>
         </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -57,9 +54,68 @@ require('connect.php');
             </button>
         </div>
 
-            <p class="text-center text-success fs-3 fw-bold">Opening Hours</p>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-header border-warning text-bg-warning text-center fs-2">
+                        HOURS OF OPERATION
+                    </div>
+                    <div class="card-body">
+<table class="table">
+<tbody>
+<tr>
+<td>Monday</td>
+<td>11:30 AM - 11:00 PM</td>
+</tr>
+<tr>
+<td>Tuesday</td>
+<td>11:30 AM - 11:00 PM</td>
+</tr>
+<tr>
+<td>Wednesday</td>
+<td>11:30 AM - 11:00 PM</td>
+</tr>
+<tr>
+<td>Thursday</td>
+<td>11:30 AM - 11:00 PM</td>
+</tr>
+<tr>
+<td>Friday</td>
+<td>11:30 AM - 12:00 AM</td>
+</tr>
+<tr>
+<td>Saturday</td>
+<td>2:00 PM - 12:00 AM</td>
+</tr>
+<tr>
+<td>Sunday</td>
+<td>2:00 PM - 10:00 PM</td>
+</tr>
+</tbody>
+</table>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-header border-warning text-bg-warning text-center fs-2">
+                        LOCATION DETAILS
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">LOCATION:</h5>
+                        <p class="card-text">160 Princess Street,</p>
+                        <p class="card-text mb-5">Winnipeg, Manitoba, R3B 1K9</p>
 
-            <p class="text-center text-success fs-3 fw-bold">Location</p>
+                        <h5 class="card-title">PHONE NO:</h5>
+                        <p class="card-text">(204) 632-3960</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <p class="text-center text-warning fs-3 fw-bold"></p>
+
+            <p class="text-center text-warning fs-3 fw-bold"></p>
         </div>
         
         <div id="footer">

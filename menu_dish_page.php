@@ -92,19 +92,18 @@ else if ($_POST && !input_is_valid())
             <p class="text-start fs-2"><?= $row['dish_description'] ?></p>  
             
             
-            <!-- table of all comments -->
-            
+            <!-- Display all comments -->           
             <?php if($statement_comment->rowCount() > 0): ?>
             <div class="card border-warning text-bg-warning w-100 mb-3 mt-5">
-            <div class="card-header border-warning text-bg-warning text-center fs-2">
-            OUR CUSTOMER SAY
-            </div>
-            <?php while($row_comment = $statement_comment->fetch()): ?>
-            <div class="card-body rounded border-warning text-bg-secondary fs-3 m-2">
-            <h3 class="card-title"><?= strtoupper($row_comment['username']) ?>:</h5>
-            <p class="card-text"><?= $row_comment['comment'] ?></p>
-            </div>
-            <?php endwhile ?>
+                <div class="card-header border-warning text-bg-warning text-center fs-2">
+                    OUR CUSTOMER SAY
+                </div>
+                <?php while($row_comment = $statement_comment->fetch()): ?>
+                    <div class="card-body rounded border-warning text-bg-secondary fs-3 m-2">
+                        <h3 class="card-title"><?= strtoupper($row_comment['username']) ?>:</h5>
+                        <p class="card-text"><?= $row_comment['comment'] ?></p>
+                    </div>
+                <?php endwhile ?>
             </div>
             <?php endif ?> 
 
