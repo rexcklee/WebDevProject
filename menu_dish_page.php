@@ -26,13 +26,12 @@ if (isset($_GET['dish_id']))
     $row = $statement->fetch();
 
     // Get comment
-    $query_comment = "SELECT * FROM user_comment c JOIN users u ON c.user_id = u.user_id WHERE c.dish_id = :dish_id_comment ORDER BY create_date DESC";
+    $query_comment = "SELECT * FROM user_comment c JOIN users u ON c.user_id = u.user_id WHERE c.dish_id = :dish_id_comment AND c.display = 1 ORDER BY create_date DESC";
     $statement_comment = $db->prepare($query_comment);
     $statement_comment->bindValue(':dish_id_comment', $dish_id);       
 
     $statement_comment->execute();
 }
-
 
 if ($_POST && comment_is_valid())
 {
@@ -87,41 +86,33 @@ else if ($_POST && !input_is_valid())
 
         <div id="main_menu" class="container-md">
             <div class="d-flex justify-content-between">
-                <p class="text-start my-4 fs-1 fw-bold"><?= $row['dish_name'] ?></p>
-                <p class="text-start my-4 fs-1 fw-bold">$<?= $row['dish_prices'] ?></p>
+                <p class="text-start my-3 fs-1 fw-bold"><?= $row['dish_name'] ?></p>
+                <p class="text-start my-3 fs-1 fw-bold">$<?= $row['dish_prices'] ?></p>
             </div>
             <p class="text-start fs-2"><?= $row['dish_description'] ?></p>  
             
             
             <!-- table of all comments -->
+            
             <?php if($statement_comment->rowCount() > 0): ?>
-            <table id="menu_table" class="table table-warning table-borderless table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Comment</th>
-                        <th scope="col">User</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $row_no = 0; ?>
-                    <?php while($row_comment = $statement_comment->fetch()): ?>
-                        <?php $row_no ++; ?>                       
-                        <tr>
-                            <th scope="row"><?= $row_no ?></th>
-                            <td><?= $row_comment['comment'] ?></td>
-                            <td><?= $row_comment['username'] ?></td>
-                        </tr>
-                    <?php endwhile ?>
-                </tbody>
-            </table>
+            <div class="card border-warning text-bg-warning w-100 mb-3 mt-5">
+            <div class="card-header border-warning text-bg-warning text-center fs-2">
+            OUR CUSTOMER SAY
+            </div>
+            <?php while($row_comment = $statement_comment->fetch()): ?>
+            <div class="card-body rounded border-warning text-bg-secondary fs-3 m-2">
+            <h3 class="card-title"><?= strtoupper($row_comment['username']) ?>:</h5>
+            <p class="card-text"><?= $row_comment['comment'] ?></p>
+            </div>
+            <?php endwhile ?>
+            </div>
             <?php endif ?> 
 
             <?php if(isset($_SESSION['id'])): ?>
             <!-- Comment submittion form -->
             <form action="menu_dish_page.php" method="post">
                 <fieldset>
-                    <legend>Your Comment</legend>                 
+                    <legend>YOUR COMMENT:</legend>                 
                         <p>
                             <textarea class="form-control" name="comment" id="comment"></textarea>
                         </p>

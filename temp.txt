@@ -1,0 +1,24 @@
+            <?php if($statement_comment->rowCount() > 0): ?>
+            <table id="menu_table" class="table table-warning table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">Customer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $row_no = 0; ?>
+                    <?php while($row_comment = $statement_comment->fetch()): ?>
+                        <?php if ($row_comment['display'] == 1): ?>
+                            <?php $row_no ++; ?>                       
+                            <tr>
+                                <th scope="row"><?= $row_no ?></th>
+                                <td><?= $row_comment['comment'] ?></td>
+                                <td><?= strtoupper($row_comment['username']) ?></td>
+                            </tr>
+                        <?php endif ?>
+                    <?php endwhile ?>
+                </tbody>
+            </table>
+            <?php endif ?> 

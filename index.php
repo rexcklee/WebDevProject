@@ -32,7 +32,30 @@ require('connect.php');
 
         <div id="index-page" class="container-md">
 
-            <p class="text-center text-success fs-3 fw-bold">This is the first page of the Oishii Japanese Restaurant</p>
+        <div id="carousel" class="my-4 carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="Image/index01.jpg" class="rounded d-block w-100" alt="food-image">
+            </div>
+            <div class="carousel-item">
+                <img src="Image/index02.jpg" class="rounded d-block w-100" alt="food-image">
+            </div>
+            <div class="carousel-item">
+                <img src="Image/index03.jpg" class="rounded d-block w-100" alt="food-image">
+            </div>
+            <div class="carousel-item">
+                <img src="Image/index04.jpg" class="rounded d-block w-100" alt="food-image">
+            </div>
+        </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
 
             <p class="text-center text-success fs-3 fw-bold">Opening Hours</p>
 
