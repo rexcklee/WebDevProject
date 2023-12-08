@@ -66,7 +66,7 @@ else
                 </div>
             <?php endif ?>
 
-            <!-- table of all categories -->
+            <!-- table of all dishes -->
             <table id="menu_table" class="table table-warning table-borderless table-hover">
                 <thead>
                     <tr>

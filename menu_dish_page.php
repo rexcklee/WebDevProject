@@ -8,6 +8,7 @@
 
 ****************/
 require('connect.php');
+require('validation.php');
 
 // Retrieve dish information to be EDIT, if id GET parameter is in URL.
 if (isset($_GET['dish_id']))
@@ -23,11 +24,46 @@ if (isset($_GET['dish_id']))
     // Execute the SELECT and fetch the single row returned.
     $statement->execute();
     $row = $statement->fetch();
+
+    // Get comment
+    $query_comment = "SELECT * FROM user_comment c JOIN users u ON c.user_id = u.user_id WHERE c.dish_id = :dish_id_comment ORDER BY create_date DESC";
+    $statement_comment = $db->prepare($query_comment);
+    $statement_comment->bindValue(':dish_id_comment', $dish_id);       
+
+    $statement_comment->execute();
 }
-else 
+
+
+if ($_POST && comment_is_valid())
 {
-    $id = false; // False if we are not UPDATING or SELECTING.
+//  Sanitize user input to escape HTML entities and filter out dangerous characters.
+$comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$dish_id = filter_input(INPUT_POST, 'dish_id', FILTER_SANITIZE_NUMBER_INT);
+$user_id = filter_input(INPUT_POST, 'user_id', FILTER_SANITIZE_NUMBER_INT);
+$display = 1;
+
+//  Build the parameterized SQL query and bind to the above sanitized values.
+$query = "INSERT INTO user_comment (comment, dish_id, user_id, display) VALUES (:comment, :dish_id, :user_id, :display)";
+$statement = $db->prepare($query);
+
+//  Bind values to the parameters
+$statement->bindValue(':comment', $comment);
+$statement->bindValue(':dish_id', $dish_id);
+$statement->bindValue(':user_id', $user_id);
+$statement->bindValue(':display', $display);
+
+//  Execute the INSERT.
+if($statement->execute())
+{
+    header('Location: menu_dish_page.php?dish_id='.$dish_id);;
 }
+}
+// Handle input invalid error
+else if ($_POST && !input_is_valid()) 
+{
+    header('Location: error.php');
+}
+
 
 ?>
 
@@ -49,14 +85,60 @@ else
 <?php include('Component\header.php'); ?>    
     <div id="webpage" class="container-fluid">
 
-    <div id="main_menu" class="container-md">
-                    <div class="d-flex justify-content-between">
-                    <p class="text-start my-4 fs-1 fw-bold"><?= $row['dish_name'] ?></p>
-                    <p class="text-start my-4 fs-1 fw-bold">$<?= $row['dish_prices'] ?></p>
-                    </div>
-                    <p class="text-start fs-2"><?= $row['dish_description'] ?></p>
-                    
+        <div id="main_menu" class="container-md">
+            <div class="d-flex justify-content-between">
+                <p class="text-start my-4 fs-1 fw-bold"><?= $row['dish_name'] ?></p>
+                <p class="text-start my-4 fs-1 fw-bold">$<?= $row['dish_prices'] ?></p>
+            </div>
+            <p class="text-start fs-2"><?= $row['dish_description'] ?></p>  
+            
+            
+            <!-- table of all comments -->
+            <?php if($statement_comment->rowCount() > 0): ?>
+            <table id="menu_table" class="table table-warning table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Comment</th>
+                        <th scope="col">User</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $row_no = 0; ?>
+                    <?php while($row_comment = $statement_comment->fetch()): ?>
+                        <?php $row_no ++; ?>                       
+                        <tr>
+                            <th scope="row"><?= $row_no ?></th>
+                            <td><?= $row_comment['comment'] ?></td>
+                            <td><?= $row_comment['username'] ?></td>
+                        </tr>
+                    <?php endwhile ?>
+                </tbody>
+            </table>
+            <?php endif ?> 
+
+            <?php if(isset($_SESSION['id'])): ?>
+            <!-- Comment submittion form -->
+            <form action="menu_dish_page.php" method="post">
+                <fieldset>
+                    <legend>Your Comment</legend>                 
+                        <p>
+                            <textarea class="form-control" name="comment" id="comment"></textarea>
+                        </p>
+                        
+                        <!-- Hidden input for the dish_id and user_id -->
+                        <input type="hidden" name="dish_id" value="<?= $row['dish_id'] ?>">
+                        <input type="hidden" name="user_id" value="<?= $_SESSION['id'] ?>">
+
+                        <p>                       
+                            <button type="submit" class="btn btn-primary" name="command">Submit</button>
+                        </p>
+                </fieldset>
+            </form>
+            <?php endif ?>  
         </div>
+
+        
 
         <div id="footer">
             Copyright 2023 - Rights reserved by Rex

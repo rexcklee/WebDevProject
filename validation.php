@@ -82,4 +82,18 @@ function user_edit_input_is_valid()
 
     return $input_is_valid;
 }
+
+function comment_is_valid()
+{
+    $comment_is_valid = true;
+
+    $comment = $_POST["comment"];
+
+    if ( $comment === null || empty($comment) || strlen($comment) > 3000)
+    {
+        $comment_is_valid = false;
+    }
+    
+    return $comment_is_valid;
+}
 ?>
