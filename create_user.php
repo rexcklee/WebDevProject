@@ -74,6 +74,7 @@ else if ($_POST && !user_create_input_is_valid())
             <li><a href="create_category.php">New Category</a></li>
             <li><a href="users.php">Users</a></li>
             <li><a href="create_user.php" class="active">New User</a></li>
+            <li><a href="admin_user_comment.php">User Comments</a></li>
         </ul> 
 
         <div id="main_content">

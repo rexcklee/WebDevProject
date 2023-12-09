@@ -127,6 +127,7 @@ else if ($_POST && ($_POST['food_category_name'] == ""))
             <li><a href="create_category.php" class="active">New Category</a></li>
             <li><a href="users.php">Users</a></li>
             <li><a href="create_user.php">New User</a></li>
+            <li><a href="admin_user_comment.php">User Comments</a></li>
         </ul> 
 
         <div id="main_content">

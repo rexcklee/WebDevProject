@@ -61,38 +61,38 @@ require('connect.php');
                         HOURS OF OPERATION
                     </div>
                     <div class="card-body">
-<table class="table">
-<tbody>
-<tr>
-<td>Monday</td>
-<td>11:30 AM - 11:00 PM</td>
-</tr>
-<tr>
-<td>Tuesday</td>
-<td>11:30 AM - 11:00 PM</td>
-</tr>
-<tr>
-<td>Wednesday</td>
-<td>11:30 AM - 11:00 PM</td>
-</tr>
-<tr>
-<td>Thursday</td>
-<td>11:30 AM - 11:00 PM</td>
-</tr>
-<tr>
-<td>Friday</td>
-<td>11:30 AM - 12:00 AM</td>
-</tr>
-<tr>
-<td>Saturday</td>
-<td>2:00 PM - 12:00 AM</td>
-</tr>
-<tr>
-<td>Sunday</td>
-<td>2:00 PM - 10:00 PM</td>
-</tr>
-</tbody>
-</table>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Monday</td>
+                                    <td>11:30 AM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Tuesday</td>
+                                    <td>11:30 AM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Wednesday</td>
+                                    <td>11:30 AM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Thursday</td>
+                                    <td>11:30 AM - 11:00 PM</td>
+                                </tr>
+                                <tr>
+                                    <td>Friday</td>
+                                    <td>11:30 AM - 12:00 AM</td>
+                                </tr>
+                                <tr>
+                                    <td>Saturday</td>
+                                    <td>2:00 PM - 12:00 AM</td>
+                                </tr>
+                                <tr>
+                                    <td>Sunday</td>
+                                    <td>2:00 PM - 10:00 PM</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

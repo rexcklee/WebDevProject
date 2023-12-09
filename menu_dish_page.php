@@ -62,8 +62,6 @@ else if ($_POST && !input_is_valid())
 {
     header('Location: error.php');
 }
-
-
 ?>
 
 <!DOCTYPE html>
