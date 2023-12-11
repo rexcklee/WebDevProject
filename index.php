@@ -113,9 +113,6 @@ require('connect.php');
             </div>
         </div>
 
-            <p class="text-center text-warning fs-3 fw-bold"></p>
-
-            <p class="text-center text-warning fs-3 fw-bold"></p>
         </div>
         
         <div id="footer">
